@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locked In</title>
+  <meta name="description" content="Dagelijkse habit tracker met streaks" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Locked In" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top-bar">
+      <div class="streak-stack">
+        <div class="stat-pill">
+          <i class="ti ti-flame" aria-hidden="true"></i>
+          <span class="pill-label">Langste streak week</span>
+          <span class="pill-value" id="streak-week">—</span>
+        </div>
+        <div class="stat-pill">
+          <i class="ti ti-trophy" aria-hidden="true"></i>
+          <span class="pill-label">Langste streak ooit</span>
+          <span class="pill-value" id="streak-alltime">—</span>
+        </div>
+      </div>
+      <div class="week-circle-block">
+        <div class="week-nav">
+          <button id="btn-prev" aria-label="Vorige week"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+          <span class="week-label" id="week-label">Week —</span>
+          <button id="btn-next" aria-label="Volgende week"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+        </div>
+        <div class="circle-wrap">
+          <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">
+            <circle cx="36" cy="36" r="28" fill="none" stroke="var(--track)" stroke-width="6"/>
+            <circle id="progress-ring" cx="36" cy="36" r="28" fill="none" stroke="var(--accent)" stroke-width="6"
+              stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"
+              transform="rotate(-90 36 36)"/>
+            <text id="pct-text" x="36" y="41" text-anchor="middle" class="ring-text">0%</text>
+          </svg>
+          <span class="circle-label">Deze week</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid-header">
+      <div class="ghost-label"></div>
+      <div class="days-row" id="days-row"></div>
+    </div>
+
+    <main id="habits-list"></main>
+
+    <button class="add-btn" id="add-btn" aria-label="Nieuwe gewoonte toevoegen">
+      <i class="ti ti-plus" aria-hidden="true"></i>
+      <span>Nieuwe gewoonte</span>
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal">
+      <h3 id="modal-title">Nieuwe gewoonte</h3>
+      <input type="text" id="habit-input" placeholder="bv. Wakker om 7u" maxlength="40" />
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-cancel">Annuleer</button>
+        <button class="btn-confirm" id="btn-confirm">Toevoegen</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
