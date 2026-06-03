@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-theme="dark" data-layout="below">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,64 +18,114 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="top-bar">
-      <div class="streak-stack">
-        <div class="stat-pill">
-          <i class="ti ti-flame" aria-hidden="true"></i>
-          <span class="pill-label">Langste streak week</span>
-          <span class="pill-value" id="streak-week">—</span>
-        </div>
-        <div class="stat-pill">
-          <i class="ti ti-trophy" aria-hidden="true"></i>
-          <span class="pill-label">Langste streak ooit</span>
-          <span class="pill-value" id="streak-alltime">—</span>
-        </div>
+<div class="app">
+  <header class="top-bar">
+    <div class="streak-stack">
+      <div class="stat-pill">
+        <i class="ti ti-flame"></i>
+        <span class="pill-label">Langste streak week</span>
+        <span class="pill-value" id="streak-week">—</span>
       </div>
-      <div class="week-circle-block">
-        <div class="week-nav">
-          <button id="btn-prev" aria-label="Vorige week"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
-          <span class="week-label" id="week-label">Week —</span>
-          <button id="btn-next" aria-label="Volgende week"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
-        </div>
-        <div class="circle-wrap">
-          <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">
-            <circle cx="36" cy="36" r="28" fill="none" stroke="var(--track)" stroke-width="6"/>
-            <circle id="progress-ring" cx="36" cy="36" r="28" fill="none" stroke="var(--accent)" stroke-width="6"
-              stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"
-              transform="rotate(-90 36 36)"/>
-            <text id="pct-text" x="36" y="41" text-anchor="middle" class="ring-text">0%</text>
-          </svg>
-          <span class="circle-label">Deze week</span>
-        </div>
+      <div class="stat-pill">
+        <i class="ti ti-trophy"></i>
+        <span class="pill-label">Langste streak ooit</span>
+        <span class="pill-value" id="streak-alltime">—</span>
       </div>
-    </header>
-
-    <div class="grid-header">
-      <div class="ghost-label"></div>
-      <div class="days-row" id="days-row"></div>
     </div>
 
-    <main id="habits-list"></main>
+    <div class="week-circle-block">
+      <div class="week-nav">
+        <button id="btn-prev" aria-label="Vorige week"><i class="ti ti-chevron-left"></i></button>
+        <span class="week-label" id="week-label">Week —</span>
+        <button id="btn-next" aria-label="Volgende week"><i class="ti ti-chevron-right"></i></button>
+      </div>
+      <!-- circle inline (layout: below) -->
+      <div class="circle-wrap">
+        <svg id="ring-svg-inline" width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="28" fill="none" stroke="var(--track)" stroke-width="6"/>
+          <circle class="progress-ring" cx="36" cy="36" r="28" fill="none" stroke="var(--accent)" stroke-width="6"
+            stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"
+            transform="rotate(-90 36 36)"/>
+          <text class="ring-text pct-text" x="36" y="41" text-anchor="middle">0%</text>
+        </svg>
+        <span class="circle-label">Deze week</span>
+      </div>
+    </div>
 
-    <button class="add-btn" id="add-btn" aria-label="Nieuwe gewoonte toevoegen">
-      <i class="ti ti-plus" aria-hidden="true"></i>
-      <span>Nieuwe gewoonte</span>
+    <button class="settings-btn" id="settings-btn" aria-label="Instellingen">
+      <i class="ti ti-settings"></i>
     </button>
-  </div>
+  </header>
 
-  <!-- Modal -->
-  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-    <div class="modal">
-      <h3 id="modal-title">Nieuwe gewoonte</h3>
-      <input type="text" id="habit-input" placeholder="bv. Wakker om 7u" maxlength="40" />
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btn-cancel">Annuleer</button>
-        <button class="btn-confirm" id="btn-confirm">Toevoegen</button>
+  <!-- app-body wraps grid + optional side circle -->
+  <div class="app-body">
+    <div class="habits-col">
+      <div class="grid-header">
+        <div class="ghost-label"></div>
+        <div class="days-row" id="days-row"></div>
       </div>
+      <main id="habits-list"></main>
+      <button class="add-btn" id="add-btn">
+        <i class="ti ti-plus"></i><span>Nieuwe gewoonte</span>
+      </button>
+    </div>
+
+    <!-- circle right (layout: right) -->
+    <div class="side-circle">
+      <svg id="ring-svg-side" width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="44" fill="none" stroke="var(--track)" stroke-width="8"/>
+        <circle class="progress-ring" cx="55" cy="55" r="44" fill="none" stroke="var(--accent)" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="276.46" stroke-dashoffset="276.46"
+          transform="rotate(-90 55 55)"/>
+        <text class="ring-text pct-text" x="55" y="62" text-anchor="middle" font-size="20">0%</text>
+      </svg>
+      <span class="circle-label">Deze week</span>
     </div>
   </div>
+</div>
 
-  <script src="app.js"></script>
+<!-- Add habit modal -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal">
+    <h3>Nieuwe gewoonte</h3>
+    <input type="text" id="habit-input" placeholder="bv. Wakker om 7u" maxlength="40" />
+    <div class="modal-actions">
+      <button class="btn-cancel" id="btn-cancel">Annuleer</button>
+      <button class="btn-confirm" id="btn-confirm">Toevoegen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="modal-backdrop" id="settings-modal" hidden>
+  <div class="modal">
+    <h3><i class="ti ti-settings" style="margin-right:8px"></i>Instellingen</h3>
+
+    <div class="settings-section">
+      <h4>Kleurthema</h4>
+      <div class="theme-grid" id="theme-grid"></div>
+    </div>
+
+    <div class="settings-section">
+      <h4>Cirkel positie</h4>
+      <div class="layout-grid">
+        <div class="layout-option active" data-layout="below">
+          <div class="layout-icon">⬆️</div>
+          Naast weekkiezer
+        </div>
+        <div class="layout-option" data-layout="right">
+          <div class="layout-icon">➡️</div>
+          Rechts van habits
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-confirm" id="settings-close">Sluiten</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
